@@ -2,15 +2,19 @@
 
 namespace App\Bank;
 
+use App\Client\Account as ClientAccount;
+
 abstract class Account
 {
     /**
      * propretie owner for save account user name
+     * @var ClientAccount
      */
-    private $owner;
+    private ClientAccount $owner;
 
     /**
      * propertie $balance for save balance
+     * @var float
      */
     protected $balance = 0;
 
@@ -20,18 +24,17 @@ abstract class Account
      * @param string $owner
      * @param float $balance
      */
-    public function __construct(string $owner, float $balance)
+    public function __construct(ClientAccount $account, float $balance)
     {
-        $this->owner = $owner;
+        $this->owner = $account;
         $this->balance = $balance;
     }
 
     /**
-     * get owner name
-     *
-     * @return void
+     * get ClientAccount
+     * @return ClientAccount
      */
-    public function getOwner()
+    public function getOwner(): ClientAccount
     {
         return $this->owner;
     }
@@ -39,13 +42,13 @@ abstract class Account
     /**
      * set new owner name
      *
-     * @param string $owner
+     * @param ClientAccount $account
      * @return self
      */
-    public function setOwner(string $owner): self
+    public function setOwner(ClientAccount $account): self
     {
-        if ($owner != "") {
-            $this->owner = $owner;
+        if (isset($account)) {
+            $this->owner = $account;
         }
 
         return $this;
